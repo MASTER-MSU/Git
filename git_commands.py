@@ -69,6 +69,7 @@ try:
     from .git.stash import *  # noqa
     from .git.status import *  # noqa
     from .git.statusbar import *  # noqa
+    from .git.remote import * #filipp
 except (ImportError, ValueError):
     # Python 2
     from git.core import *  # noqa
@@ -85,3 +86,4 @@ except (ImportError, ValueError):
     from git.stash import *  # noqa
     from git.status import *  # noqa
     from git.statusbar import *  # noqa
+    from git.remote import *
