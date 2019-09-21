@@ -113,9 +113,15 @@ class GitNewBranchCommand(GitWindowCommand):
             view.run_command("git_branch_status")
 
 
+
 class GitTrackRemoteBranchCommand(GitBranchCommand):
-    command_to_run_after_branch = ['checkout', '-t']
-    extra_flags = ['-r']
+    command_to_run_after_branch = ['checkout', '--track']
+    extra_flags = ['--remote']
+
+
+class GitSetUpstreamBranchCommand(GitBranchCommand):
+    command_to_run_after_branch = ['branch', '--set-upstream-to']
+    extra_flags = ['--remote']
 
 
 class GitNewTagCommand(GitWindowCommand):
