@@ -80,7 +80,7 @@ class GitMergeToolCommand(GitWindowCommand):
 
     def is_enabled(self):
         root = git_root(self.get_working_dir())
-        return root and os.path.exists(os.path.join(root, ".git/MERGE_HEAD"))
+        return root and os.path.exists(os.path.join(root, ".git/MERGE_HEAD"))   
 
 
 class GitMergeAbortCommand(GitMergeToolCommand):
