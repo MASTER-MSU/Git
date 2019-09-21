@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals, print_function, division
 
 import re
-
+import string
 import sublime
 import sublime_plugin
 from . import GitTextCommand
@@ -18,6 +18,10 @@ class GitBranchStatusListener(sublime_plugin.EventListener):
 class GitBranchStatusCommand(GitTextCommand):
     def run(self, view):
         s = sublime.load_settings("Git.sublime-settings")
+        if s.get("statusbar_directory"):
+            self.run_command(['git', 'rev-parse','--show-toplevel'], self.directory_done, show_status=False, no_save=True)
+        else:
+            self.view.set_status("statusbar_directory", "")
         if s.get("statusbar_branch"):
             self.run_command(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], self.branch_done, show_status=False, no_save=True, error_suppresses_output=True)
         else:
@@ -32,6 +36,15 @@ class GitBranchStatusCommand(GitTextCommand):
             self.view.set_status("git-branch", "")
         else:
             self.view.set_status("git-branch", "⎇ " + result.strip())
+
+    def directory_done(self, result):
+        s = sublime.load_settings("Git.sublime-settings")
+        if s.get("statusbar_directory_show_full_path"):
+            path = result
+        else:
+            path = string.split(result,'/')[-1]
+
+        self.view.set_status("git-directory", "dir: " + path)
 
     def status_done(self, result):
         if result is False:
