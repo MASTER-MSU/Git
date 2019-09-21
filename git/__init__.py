@@ -81,14 +81,6 @@ def git_root_exist(directory):
     return git_root(directory)
 
 
-# try to get an open folder from the window
-def get_open_folder_from_window(window):
-    try:  # handle case with no open folder
-        return window.folders()[0]
-    except IndexError:
-        return ''
-
-
 def view_contents(view):
     region = sublime.Region(0, view.size())
     return view.substr(region)
@@ -264,13 +256,7 @@ class GitCommand(object):
             kwargs[str('fallback_encoding')] = str(self.active_view().settings().get('fallback_encoding').rpartition('(')[2].rpartition(')')[0])
 
         s = sublime.load_settings("Git.sublime-settings")
-        if (
-            s.get('save_first') and
-            self.active_view() and
-            self.active_view().file_name() and
-            self.active_view().is_dirty() and
-            not no_save
-        ):
+        if s.get('save_first') and self.active_view() and self.active_view().is_dirty() and not no_save:
             self.active_view().run_command('save')
         if command[0] == 'git':
             us = sublime.load_settings('Preferences.sublime-settings')
@@ -406,7 +392,10 @@ class GitWindowCommand(GitCommand, sublime_plugin.WindowCommand):
         file_name = self.active_file_path()
         if file_name:
             return os.path.realpath(os.path.dirname(file_name))
-        return get_open_folder_from_window(self.window)
+        try:  # handle case with no open folder
+            return self.window.folders()[0]
+        except IndexError:
+            return ''
 
     def get_window(self):
         return self.window

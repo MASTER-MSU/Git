@@ -38,7 +38,6 @@ mods_load_order = [
     '.stash',
     '.statusbar',
     '.flow',
-    '.file',
 ]
 
 reload_mods = [mod for mod in sys.modules if mod[0:3] in ('git', 'Git') and sys.modules[mod] is not None]
@@ -61,12 +60,10 @@ try:
     from .git.add import *  # noqa
     from .git.index import *  # noqa
     from .git.annotate import *  # noqa
-    from .git.config import *  # noqa
     from .git.commit import *  # noqa
     from .git.diff import *  # noqa
     from .git.flow import *  # noqa
     from .git.history import *  # noqa
-    from .git.file import *  # noqa
     from .git.ignore import *  # noqa
     from .git.repo import *  # noqa
     from .git.stash import *  # noqa
@@ -79,12 +76,10 @@ except (ImportError, ValueError):
     from git.add import *  # noqa
     from git.index import *  # noqa
     from git.annotate import *  # noqa
-    from git.config import *  # noqa
     from git.commit import *  # noqa
     from git.diff import *  # noqa
     from git.flow import *  # noqa
     from git.history import *  # noqa
-    from git.file import *  # noqa
     from git.ignore import *  # noqa
     from git.repo import *  # noqa
     from git.stash import *  # noqa
