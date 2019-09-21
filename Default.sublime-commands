@@ -114,6 +114,14 @@
         "command": "git_quick_commit", "args": { "target": false }
     }
     ,{
+        "caption": "Git: Merge Abort",
+        "command": "git_merge_abort"
+    }
+    ,{
+        "caption": "Git: Merge Tool",
+        "command": "git_merge_tool"
+    }
+    ,{
         "caption": "Git: Status",
         "command": "git_status"
     }
