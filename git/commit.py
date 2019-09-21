@@ -32,9 +32,13 @@ class GitQuickCommitCommand(GitTextCommand):
             command = ['git', 'add']
             if target == '*':
                 command.append('--all')
+                self.run_command(['git', 'commit', '-am', message])
+            elif target == 'push':
+                self.run_command(['git', 'commit', '-am', message])
+                self.run_command(['git', 'push'])
             else:
                 command.extend(('--', target))
-            self.run_command(command, functools.partial(self.add_done, message))
+                self.run_command(command, functools.partial(self.add_done, message))
         else:
             self.add_done(message, "")
 

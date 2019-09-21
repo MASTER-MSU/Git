@@ -118,6 +118,10 @@
         "command": "git_quick_commit", "args": { "target": "*" }
     }
     ,{
+        "caption": "Git: Quick Commit (and push)",
+        "command": "git_quick_commit", "args": { "target": "push" }
+    }
+    ,{
         "caption": "Git: Quick Commit (repo, only already added files)",
         "command": "git_quick_commit", "args": { "target": false }
     }
