@@ -41,6 +41,7 @@ class GitQuickCommitCommand(GitTextCommand):
                 self.run_command(['git', 'push'])
         else:
             self.add_done(message, "")
+
     def add_done(self, message, result):
         if result.strip():
             sublime.error_message("Error adding file:\n" + result)
