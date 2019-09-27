@@ -32,21 +32,22 @@ class GitQuickCommitCommand(GitTextCommand):
             command = ['git', 'add']
             if target == '*':
                 command.append('--all')
+                self.run_command(command, functools.partial(self.add_done, message))
             elif target == 'push':
                 command.append('--all')
+                self.run_command(command, functools.partial(self.add_done, message))
+                self.run_command(['git', 'push'])
             else:
                 command.extend(('--', target))
-            self.run_command(command, functools.partial(self.add_done, message))
-            if target == 'push':
-                self.run_command(['git', 'push'])
+                self.run_command(command, functools.partial(self.add_done, message))
         else:
             self.add_done(message, "")
-
     def add_done(self, message, result):
         if result.strip():
             sublime.error_message("Error adding file:\n" + result)
             return
         self.run_command(['git', 'commit', '-m', message])
+
 
 
 # Commit is complicated. It'd be easy if I just wanted to let it run
